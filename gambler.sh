@@ -5,7 +5,13 @@ win=0
 loss=0
 bet=1
 amount=0
+total=0
 
+declare -a array
+counter=1
+
+	for (( day=1; day<=30 ; day++ ))
+	do
 		amount=stake
 		while(( amount>0 ))			 # game starts
 		do
@@ -31,4 +37,10 @@ amount=0
 
 		done		#game ends
 
-			echo $amount
+			total=$[(total+amount)]
+			array[counter++]=$total
+			#echo "Day" $day "amount" $amount "TotalAmount" $total "wins" $win "loss" $loss
+	done
+
+				echo ${array[@]:1:20}
+
