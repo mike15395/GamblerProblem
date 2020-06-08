@@ -1,3 +1,4 @@
+
 #!/bin/bash -x
 
 stake=100
@@ -28,10 +29,12 @@ counter=1
 			if (( amount == 150 )) 
 			then							 #winning target reached
 					((++win))
+					echo "Day " $day "won " $win
 					break;
 			elif (( amount == 50 ))
 			then							#losing condition reached
 					((++loss))
+					echo "Day " $day "loss " $loss
 					break;
 			fi
 
@@ -39,8 +42,22 @@ counter=1
 
 			total=$[(total+amount)]
 			array[counter++]=$total
-			#echo "Day" $day "amount" $amount "TotalAmount" $total "wins" $win "loss" $loss
+			echo "Day" $day "amount" $amount "TotalAmount" $total 
 	done
 
-				echo ${array[@]:1:20}
+				#echo ${array[@]}
 
+			monthly_stake=3000
+			if (( $win > $loss ))
+			then
+					diff=$[($total-$monthly_stake)]
+					echo "Won by" $diff
+			elif (( $loss > $win ))
+			then
+					diff=$[(monthly_stake-total)]
+					echo "Lost by" $diff
+			else
+					echo "Draw"
+			fi
+
+			echo "TotalgamesWon=" $win  "Totalgameslost=" $loss
