@@ -1,6 +1,9 @@
 
 #!/bin/bash -x
 
+function gambler()
+{
+
 stake=100
 win=0
 loss=0
@@ -45,13 +48,36 @@ counter=1
 			echo "Day" $day "amount" $amount "TotalAmount" $total 
 	done
 
+						echo "TotalgamesWon=" $win  "Totalgameslost=" $loss
+
+}
 				#echo ${array[@]}
 
+
+function monthly_calc()
+{
 			monthly_stake=3000
 			if (( $win > $loss ))
 			then
 					diff=$[($total-$monthly_stake)]
 					echo "Won by" $diff
+
+					echo "1.Continue gambling"
+					echo "2.Stop"
+					echo "Enter your choice"
+					read choice
+
+					case $choice in 
+										1 ) 
+												gambler
+												;;
+										2 )
+												exit 0
+												;;
+
+					esac
+
+
 			elif (( $loss > $win ))
 			then
 					diff=$[(monthly_stake-total)]
@@ -60,4 +86,8 @@ counter=1
 					echo "Draw"
 			fi
 
-			echo "TotalgamesWon=" $win  "Totalgameslost=" $loss
+
+}
+
+gambler
+monthly_calc
